@@ -1,0 +1,10 @@
+def view_data(dataset, unloader, exampletype='img'):
+    print(dataset[0].shape)
+    print('Input example:')
+    print(dataset[0])
+    print()
+    print('Visual example:')
+    img = unloader(dataset[0])
+    print(dataset[0].shape)
+    img.show()
+    print()
