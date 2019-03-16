@@ -7,8 +7,8 @@ save_dir = os.path.expanduser('~/adla/data/NLP/whatsapp/intents')
 
 key_intent_dict = {
     's': 'my size is',
-    'o': 'other',
-    #'w': 'whatsapp admin message',
+    #'o': 'other',                                       # use this to request a new intent
+    't': 'return',
     'r': 'new request',
     'i': 'add more info to request',
     'q': 'question about process',
