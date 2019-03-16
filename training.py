@@ -25,6 +25,7 @@ def train(model, dataloader, criterion, optimiser, epoch, figure, axis, train_lo
 
 
 def evaluate(model, dataloader, criterion, epoch, figure, axis, val_losses):
+    model.eval()
     for batch_idx, batch in enumerate(dataloader):
         x = batch
         prediction = model(x)
@@ -33,6 +34,7 @@ def evaluate(model, dataloader, criterion, epoch, figure, axis, val_losses):
         val_losses.append(loss.item())
         axis.plot(val_losses, 'g')
         figure.canvas.draw()
+    model.train()
 
 def getLossPlot():
     fig = plt.figure()
