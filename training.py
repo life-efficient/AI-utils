@@ -1,15 +1,15 @@
 import matplotlib.pyplot as plt
-from timer import Timer
+from profiler import Timer
 
 def train(model, dataloader, criterion, optimiser, epoch, figure, axis, train_losses, timer):
     for batch_idx, batch in enumerate(dataloader):
-        x = batch.cuda()
+        x, y = batch
         timer.start('forward pass')
         prediction = model(x)
         timer.stop('forward pass')
         #print('Input shape:', x.shape)
         #print('Prediction shape:', prediction.shape)
-        loss = criterion(prediction, x)
+        loss = criterion(prediction, y)
         optimiser.zero_grad()
         loss.backward()
         optimiser.step()
@@ -22,14 +22,12 @@ def train(model, dataloader, criterion, optimiser, epoch, figure, axis, train_lo
             #break
             pass
 
-
-
 def evaluate(model, dataloader, criterion, epoch, figure, axis, val_losses):
     model.eval()
     for batch_idx, batch in enumerate(dataloader):
-        x = batch
+        x, y = batch
         prediction = model(x)
-        loss = criterion(prediction, x)
+        loss = criterion(prediction, y)
         print('Epoch:', epoch, '\tBatch:', batch_idx, '\tLoss:', loss.item())
         val_losses.append(loss.item())
         axis.plot(val_losses, 'g')
